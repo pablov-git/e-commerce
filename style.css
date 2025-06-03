@@ -1,0 +1,41 @@
+/*
+.card {
+  width: 18rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: contain;
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.card .btn {
+  margin-top: auto;
+}
+*/
+
+.card-img-top{
+    height: 200px;
+    object-fit: contain;
+}
+
+
+.card-title{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.accordion{
+  --bs-accordion-btn-bg: #c41515;
+}
