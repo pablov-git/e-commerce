@@ -1,4 +1,5 @@
 let carrito = [];
+let botonFinalizarCompra = document.getElementById("finalizarCompra");
 
 // Añadir producto al carrito
 function anyadirObjeto(producto){
@@ -13,6 +14,8 @@ function anyadirObjeto(producto){
     actualizarContador();
     renderizarCarrito();
     console.log(carrito);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    actualizarEstadoBotonCheckout();
 }
 
 // Eliminar un producto del carrito
@@ -21,6 +24,8 @@ function eliminarObjeto(id){
     notificar(`Producto eliminado del carrito`);
     actualizarContador();
     renderizarCarrito();
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    actualizarEstadoBotonCheckout();
 }
 
 // Vaciar todo el carrito
@@ -29,6 +34,8 @@ function vaciarCarrito() {
     notificar("Carrito vaciado");
     actualizarContador();
     renderizarCarrito();
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    actualizarEstadoBotonCheckout();
 }
 
 // Conectar botón vaciarCarrito
@@ -82,7 +89,13 @@ function renderizarCarrito() {
     totalSpan.textContent = `$${total.toFixed(2)}`;
 }
 
-// Mostrar mensaje
+// Mostrar cualquier mensaje que pasemos como argumento
 function notificar(mensaje){
     alert(mensaje);
 }
+
+// Engancha el botón finalizarCompra y redirige al usuario a la página de compra (compra.html) al hacer clic en el botón
+botonFinalizarCompra.onclick=()=>{
+    window.location.replace("./compra.html");
+}
+

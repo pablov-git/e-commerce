@@ -6,9 +6,10 @@ let botonBuscar = document.getElementById("botonBuscar");
 let botonesCategorias = {
   "men's clothing": document.getElementById("botonRopaHombre"),
   "women's clothing": document.getElementById("botonRopaMujer"),
-  "jewelery": document.getElementById("botonJoyeria"),
-  "electronics": document.getElementById("botonElectronica")
+  jewelery: document.getElementById("botonJoyeria"),
+  electronics: document.getElementById("botonElectronica"),
 };
+let sortingSelect = document.getElementById("sortingSelect");
 
 const URL = "https://fakestoreapi.com/products";
 let productos = [];
@@ -26,8 +27,8 @@ function obtenerProductos() {
       engancharBotonesCesta();
       console.log(botonesAnyadirCesta);
     })
-    .catch(error => alert(error))
-    .finally(()=>console.log('Terminó la peitición asincrónica'));
+    .catch((error) => alert(error))
+    .finally(() => console.log("Terminó la peitición asincrónica"));
 }
 
 obtenerProductos();
@@ -35,12 +36,11 @@ obtenerProductos();
 // Función para renderizar una lista de productos en el HTML
 // Generamos el HTML de cada tarjeta de producto y lo insertamos en el contenedor
 function renderizarProductos(lista) {
-
   productosContainer.innerHTML = "";
 
   for (let i = 0; i < lista.length; i++) {
     let producto = lista[i];
-  
+
     productosContainer.innerHTML += `<div class="col">
           <div class="card h-100">
           <img src="${producto.image}" class="card-img-top p-3" alt="${producto.title}">
@@ -70,20 +70,21 @@ function renderizarProductos(lista) {
   }
 }
 
-function filtrarPorCategoria(categoria){
-  const arrayCategoria = productos.filter(producto => producto.category === categoria);
+// Función que filtra los productos según la categoría especificada
+function filtrarPorCategoria(categoria) {
+  const arrayCategoria = productos.filter(
+    (producto) => producto.category === categoria
+  );
   return arrayCategoria;
 }
 
 // Función que se llama al hacer clic en un botón de categoría
 function manejarClickCategoria(categoria) {
-
   // Si ya está seleccionada, la deseleccionamos y mostramos todos los productos
   if (categoriaSeleccionada === categoria) {
     categoriaSeleccionada = null;
     renderizarProductos(productos);
   } else {
-
     // Si es una nueva selección, guardamos y filtramos
     categoriaSeleccionada = categoria;
     renderizarProductos(filtrarPorCategoria(categoria));
@@ -109,7 +110,6 @@ for (const [categoria, boton] of Object.entries(botonesCategorias)) {
   boton.addEventListener("click", () => manejarClickCategoria(categoria));
 }
 
-
 // Función para buscar productos en la tienda
 function buscarProductos() {
   // Obtiene el texto del input de búsqueda, sin espacios y en minúsculas
@@ -120,12 +120,14 @@ function buscarProductos() {
 
   // Si hay una categoría seleccionada, filtramos por esa categoría primero
   if (categoriaSeleccionada) {
-    resultados = resultados.filter(producto => producto.category === categoriaSeleccionada);
+    resultados = resultados.filter(
+      (producto) => producto.category === categoriaSeleccionada
+    );
   }
 
   // Si hay texto de búsqueda, filtramos también por coincidencia con el título
   if (texto !== "") {
-    resultados = resultados.filter(producto =>
+    resultados = resultados.filter((producto) =>
       producto.title.toLowerCase().includes(texto)
     );
   }
@@ -134,8 +136,6 @@ function buscarProductos() {
   renderizarProductos(resultados);
 }
 
-
-// Asigna la función buscarProductos al botón de buscar
 botonBuscar.onclick = buscarProductos;
 
 // Permite buscar presionando la tecla "Enter" dentro del input
@@ -143,54 +143,77 @@ inputBuscar.addEventListener("keypress", (e) => {
   if (e.key === "Enter") buscarProductos();
 });
 
-function engancharBotonesCesta(){
-    for (const boton of botonesAnyadirCesta){
-    boton.onclick=()=>{
-      const productoEncontrado = productos.find((producto) => producto.id == boton.dataset.id);
-      if (productoEncontrado != undefined){
-        anyadirObjeto(productoEncontrado);
-      }
-    }
+// Evento que se dispara cuando cambia la opción seleccionada en el select de ordenamiento
+sortingSelect.onchange = () => {
+  ordenarPor(sortingSelect.value);
+  renderizarProductos(productos);
+  console.log(sortingSelect.value);
+};
+
+// Función que ordena el array 'productos' según un criterio dado
+function ordenarPor(criterio) {
+  if (criterio == "nombre") {
+    productos.sort((a, b) => a.title.localeCompare(b.title));
+  }
+  if (criterio == "precio") {
+    productos.sort((a, b) => b.price - a.price);
+  }
+  if (criterio == "nota") {
+    productos.sort((a, b) => b.rating.rate - a.rating.rate);
   }
 }
 
-
-// Cargar contenido de carrito.html al abrir el modal
-const modalCarrito = document.getElementById('modalCarrito');
-modalCarrito.addEventListener('show.bs.modal', () => {
-  fetch('carrito.html')
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById('modalCarritoBody').innerHTML = html;
-      // Volvemos a renderizar el carrito después de insertar el HTML
-      renderizarCarrito();
-
-      // Reenganchamos el botón de vaciar carrito, ya que el DOM ha cambiado
-      const botonVaciar = document.getElementById("vaciarCarrito");
-      if (botonVaciar) {
-        botonVaciar.addEventListener("click", vaciarCarrito);
+// Función que engancha la acción de añadir un producto al carrito a cada botón "Añadir"
+function engancharBotonesCesta() {
+  for (const boton of botonesAnyadirCesta) {
+    boton.onclick = () => {
+      const productoEncontrado = productos.find(
+        (producto) => producto.id == boton.dataset.id
+      );
+      if (productoEncontrado != undefined) {
+        anyadirObjeto(productoEncontrado);
       }
+    };
+  }
+}
 
-      // Reenganchamos el botón de finalizar compra
-      const botonFinalizar = document.getElementById("finalizarCompra");
-      if (botonFinalizar) {
-        botonFinalizar.addEventListener("click", () => {
-        if (carrito.length === 0) return;
+// Volvemos a renderizar el carrito después de insertar el HTML
+renderizarCarrito();
 
-        // Aquí puedes agregar lógica de confirmación o registro
-        alert("¡Gracias por tu compra!");
+// Reenganchamos el botón de vaciar carrito, ya que el DOM ha cambiado
+const botonVaciar = document.getElementById("vaciarCarrito");
+if (botonVaciar) {
+  botonVaciar.addEventListener("click", vaciarCarrito);
+}
 
-        // Vaciar carrito y cerrar modal
-        vaciarCarrito();
+// Reenganchamos el botón de finalizar compra
+const botonFinalizar = document.getElementById("finalizarCompra");
+if (botonFinalizar) {
+  botonFinalizar.addEventListener("click", () => {
+    if (carrito.length === 0) return;
 
-        const modalElement = bootstrap.Modal.getInstance(modalCarrito);
-        modalElement.hide();
-        });
-      }
-    })
-    .catch(err => {
-      document.getElementById('modalCarritoBody').innerHTML = `<p class="text-danger">Error al cargar el carrito.</p>`;
-      console.error(err);
-    });
-});
+    // Vaciar carrito y cerrar modal
+    vaciarCarrito();
 
+    const modalElement = bootstrap.Modal.getInstance(modalCarrito);
+    modalElement.hide();
+  });
+}
+
+// Evita que se acceda al formulario de compra si el carrito está vacío
+// Si el carrito está vacío, deshabilitamos el botón para que no se pueda pulsar
+// Si hay productos en el carrito, habilitamos el botón
+function actualizarEstadoBotonCheckout() {
+  let btnCheckout = document.getElementById("finalizarCompra");
+  if (carrito.length === 0) {
+    btnCheckout.disabled = true;
+    btnCheckout.classList.add("disabled");
+    btnCheckout.title = "You can't checkout with an empty cart";
+  } else {
+    btnCheckout.disabled = false;
+    btnCheckout.classList.remove("disabled");
+    btnCheckout.title = "";
+  }
+}
+
+actualizarEstadoBotonCheckout();
