@@ -31,7 +31,7 @@ function eliminarObjeto(id){
 // Vaciar todo el carrito
 function vaciarCarrito() {
     carrito = [];
-    notificar("Carrito vaciado");
+    notificar("Cart emptied");
     actualizarContador();
     renderizarCarrito();
     localStorage.setItem("carrito", JSON.stringify(carrito));

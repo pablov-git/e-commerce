@@ -186,14 +186,11 @@ if (botonVaciar) {
   botonVaciar.addEventListener("click", vaciarCarrito);
 }
 
-// Reenganchamos el botón de finalizar compra
+// Enganchamos el botón de finalizar compra, verifica que el carrito no esté vacío, y si no lo está cierra el modal del carrito usando la funcionalidad de Bootstrap
 const botonFinalizar = document.getElementById("finalizarCompra");
 if (botonFinalizar) {
   botonFinalizar.addEventListener("click", () => {
     if (carrito.length === 0) return;
-
-    // Vaciar carrito y cerrar modal
-    vaciarCarrito();
 
     const modalElement = bootstrap.Modal.getInstance(modalCarrito);
     modalElement.hide();
