@@ -41,7 +41,7 @@ function renderizarProductos(lista) {
   for (let i = 0; i < lista.length; i++) {
     let producto = lista[i];
 
-    productosContainer.innerHTML += `<div class="col">
+    productosContainer.innerHTML += `<div class="col" data-aos="flip-left" data-aos-delay="50" data-aos-duration="1000">
           <div class="card h-100">
           <img src="${producto.image}" class="card-img-top p-3" alt="${producto.title}">
           <div class="card-body d-flex flex-column">
@@ -63,7 +63,7 @@ function renderizarProductos(lista) {
               <p class="card-text mt-3">Price: ${producto.price}$</p>
               <p class="card-text">Category: ${producto.category}</p>
               <p class="card-text">Rating: ${producto.rating.rate}</p>
-              <a href="#" class="btn btn-primary mt-auto boton-anyadir" data-id="${producto.id}">Add to cart</a>
+              <a class="btn btn-primary mt-auto boton-anyadir" data-id="${producto.id}">Add to cart</a>
           </div>
         </div>
     </div>`;
@@ -214,3 +214,4 @@ function actualizarEstadoBotonCheckout() {
 }
 
 actualizarEstadoBotonCheckout();
+

@@ -1,19 +1,19 @@
-.card-img-top{
-    height: 200px;
-    object-fit: contain;
+.card-img-top {
+  height: 200px;
+  object-fit: contain;
 }
 
-.card-title{
+.card-title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.accordion{
+.accordion {
   --bs-accordion-btn-bg: #c41515;
 }
 
-footer{
+footer {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -24,4 +24,162 @@ footer{
   cursor: not-allowed;
   opacity: 0.5;
   box-shadow: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.material-icons {
+  font-size: 56px;
+}
+
+/* =======================
+   MEDIAQUERIES MÓVIL
+   ======================= */
+@media (max-width: 575.98px) {
+  /* ------ INDEX ------ */
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  header > .d-flex.align-items-center {
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  header > .d-flex.gap-2 {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  header select,
+  header button,
+  header input {
+    width: auto;
+    max-width: 100%;
+  }
+
+  #inputBuscar {
+    flex: 1 1 auto;
+    min-width: 150px;
+    width: auto;
+  }
+
+  #botonBuscar,
+  #botonCarrito {
+    flex-shrink: 0;
+  }
+
+  #carritoItems .list-group-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    text-align: left;
+  }
+
+  #carritoItems .list-group-item > div:first-child {
+    width: 100%;
+  }
+
+  #carritoItems .list-group-item > div:last-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  #carritoItems .list-group-item span,
+  #carritoItems .list-group-item button {
+    margin: 0;
+  }
+
+  #carritoItems h6 {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  #carritoItems small {
+    font-size: 0.85rem;
+  }
+
+  /* ------ CHECKOUT ------ */
+
+  main.container {
+    padding-bottom: 12rem;
+  }
+
+  #formularioEnvioDatos {
+    padding: 1.5rem !important;
+    margin-bottom: 0;
+  }
+
+  main .p-5 {
+    padding: 1.5rem !important;
+  }
+
+  #whatsAppButton {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    width: 100%;
+  }
+
+  #whatsAppButton .fs-5 {
+    font-size: 1rem !important;
+  }
+
+  #whatsAppButton .fs-4 {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ======================= 
+   MEDIAQUERIES TABLET 
+   ======================= */
+
+@media (min-width: 577px) and (max-width: 991px) {
+  /* ------ ITEMS CARRITO ------ */
+
+  #carritoItems .list-group-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: left;
+  }
+
+  #carritoItems .list-group-item > div:first-child {
+    width: 60%;
+  }
+
+  #carritoItems .list-group-item > div:last-child {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 40%;
+    gap: 1rem;
+  }
+
+  #carritoItems .list-group-item span {
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  /* ------ INDEX ------ */
+  header > .d-flex.align-items-center.gap-2 span.material-icons {
+    font-size: 1.8rem;
+  }
+
+  header > .d-flex.align-items-center.gap-2 h1 {
+    font-size: 1.5rem;
+  }
 }
