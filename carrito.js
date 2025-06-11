@@ -104,5 +104,5 @@ function notificar(mensaje) {
 
 // Engancha el botón finalizarCompra y redirige al usuario a la página de compra (compra.html) al hacer clic en el botón
 botonFinalizarCompra.onclick = () => {
-  window.location.replace("./compra.html");
+  window.open("./compra.html", "_blank");
 };
