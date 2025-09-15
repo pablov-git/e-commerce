@@ -41,12 +41,12 @@ A simple e-commerce frontend built with **HTML, CSS, and JavaScript**.
 3. Open index.html in your browser.
 
 
-🚀 Deployment
+## 🚀 Deployment
 
 The project is live at:
 👉 https://pablov-git-e-commerce.netlify.app/
 
 
-✒️ Created by
+## ✒️ Created by
 
-Pablo Vacas Macarro
+• Pablo Vacas Macarro
