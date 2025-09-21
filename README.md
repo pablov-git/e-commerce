@@ -1,6 +1,7 @@
 # 🛒 E-Commerce
 
 A simple e-commerce frontend built with **HTML, CSS, and JavaScript**.
+
 The project fetches product data from an external API using JavaScript's fetch() function.
 
 ---
